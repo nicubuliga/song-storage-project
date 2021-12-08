@@ -1,0 +1,5 @@
+ADD_SONG = r".\files_util\add_song.json"
+DELETE_SONG = r".\files_util\delete_song.json"
+MODIFY_SONG = r".\files_util\modify_song.json"
+SEARCH_SONG = r".\files_util\search_song.json"
+CREATE_SAVELIST = r".\files_util\create_savelist.json"

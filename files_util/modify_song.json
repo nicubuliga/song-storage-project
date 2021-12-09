@@ -1,0 +1,13 @@
+{
+  "ID": "0001",
+  "filename": "song1.mp3",
+  "artist": "Eminem",
+  "song_name": "Venom",
+  "date": "17.02.2019",
+  "tags": [
+        "venom",
+        "song",
+        "eminem",
+        "movie"
+    ]
+}

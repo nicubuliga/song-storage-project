@@ -13,6 +13,19 @@ Script should be called with exactly one parameter: song_util.py <action>
 INFO_MISSING_JSON = "You should create a json file {} with necessary parameters"
 
 
+class SongStorage:
+    def __init__(self):
+        pass
+
+
+    def add_song(self):
+        add_obj = get_from_json(env.ADD_SONG)
+
+        #  Copy song to <Storage> folder
+        new_song_path = os.path.join("Storage", add_obj["filename"])
+        shutil.copy(add_obj["song_filepath"], new_song_path)
+
+
 def validate_action():
     assert (len(sys.argv) > 1), INFO_VALIDATE
 
@@ -30,23 +43,15 @@ def get_from_json(json_path):
     return obj
 
 
-def add_song():
-    add_obj = get_from_json(env.ADD_SONG)
-
-    #  Copy song to <Storage> folder
-    new_song_path = os.path.join("Storage", add_obj["filename"])
-    shutil.copy(add_obj["song_filepath"], new_song_path)
-
-
 def play_song():
     play_obj = get_from_json(env.PLAY_SONG)
     song_path = os.path.join(".", "Storage", play_obj["filename"])
     webbrowser.open(song_path)
 
 
-def execute_action(action):
+def execute_action(action, song_storage):
     if action == "add":
-        id = add_song()
+        id = song_storage.add_song()
     elif action == "delete":
         pass
     elif action == "modify":
@@ -59,10 +64,12 @@ def execute_action(action):
         play_song()
 
 
+
 if __name__ == "__main__":
     try:
+        song_storage = SongStorage()
         validate_action()
-        execute_action(sys.argv[1])
+        execute_action(sys.argv[1], song_storage)
     except Exception as e:
         print(str(e))
         sys.exit()

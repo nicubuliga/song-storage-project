@@ -5,9 +5,9 @@ DROP_SONGS = "DROP table IF EXISTS songs;"
 CREATE_SONGS_TABLE = """
 CREATE TABLE songs (
     id integer primary key autoincrement,
-    filename text,
+    filename text NOT NULL,
     artist text,
-    song_name text,
+    song_name text NOT NULL,
     date text,
     tags text
 )
@@ -35,6 +35,9 @@ def create_connection(db_file):
 
     return conn
 
+
+def add(obj):
+    pass
 
 if __name__ == '__main__':
     conn = create_connection(r"db\songs.db")

@@ -4,6 +4,7 @@ import env
 import os
 import shutil
 import webbrowser
+import db_util as db
 
 INFO_VALIDATE = """
 Script should be called with exactly one parameter: song_util.py <action>
@@ -24,6 +25,9 @@ class SongStorage:
         #  Copy song to <Storage> folder
         new_song_path = os.path.join("Storage", add_obj["filename"])
         shutil.copy(add_obj["song_filepath"], new_song_path)
+
+        # Add metadata to db
+        db.add(add_obj)
 
 
 def validate_action():

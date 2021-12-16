@@ -4,6 +4,7 @@ INSERT_SONG_SQL = '''INSERT INTO songs(filename,artist,song_name,date) VALUES(?,
 INSERT_TAG_SQL = '''INSERT INTO tags(song_id,tag) VALUES(?,?);'''
 DELETE_SONG_SQL = '''DELETE FROM songs WHERE id=?;'''
 DELETE_TAGS_SQL = '''DELETE FROM tags WHERE song_id=?;'''
+UPDATE_SONG_SQL = "UPDATE songs SET "
 
 DROP_SONGS = "DROP table IF EXISTS songs;"
 DROP_TAGS = "DROP table IF EXISTS tags;"

@@ -1,13 +1,14 @@
 {
-  "ID": "0001",
+  "ID": 3,
   "filename": "song1.mp3",
-  "artist": "Eminem",
+  "artist": "Eminem si echipa",
   "song_name": "Venom",
-  "date": "17.02.2019",
   "tags": [
         "venom",
         "song",
         "eminem",
         "movie"
-    ]
+    ],
+
+  "tags_operation": "add/remove/overwrite" 
 }

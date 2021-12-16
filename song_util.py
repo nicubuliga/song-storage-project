@@ -89,10 +89,10 @@ def execute_action(action, song_storage):
 
 
 if __name__ == "__main__":
-    try:
-        song_storage = SongStorage()
-        validate_action()
-        execute_action(sys.argv[1], song_storage)
-    except Exception as e:
-        print(str(e))
-        sys.exit()
+    # try:
+    song_storage = SongStorage()
+    validate_action()
+    execute_action(sys.argv[1], song_storage)
+    # except Exception as e:
+    #     print(e)
+    #     sys.exit()

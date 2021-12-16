@@ -15,9 +15,6 @@ INFO_MISSING_JSON = "You should create a json file {} with necessary parameters"
 
 
 class SongStorage:
-    def __init__(self):
-        pass
-
 
     def add_song(self):
         add_obj = get_from_json(env.ADD_SONG)
@@ -27,7 +24,24 @@ class SongStorage:
         shutil.copy(add_obj["song_filepath"], new_song_path)
 
         # Add metadata to db
-        db.add(add_obj)
+        song_id = db.add(add_obj)
+        print("Song added succesfully!")
+
+        return song_id
+
+    def delete_song(self):
+        delete_obj = get_from_json(env.DELETE_SONG)
+
+        db.delete(delete_obj["ID"])
+
+        print("Song and tags removed successfully!")
+
+    def modify_song(self):
+        modify_obj = get_from_json(env.MODIFY_SONG)
+
+        db.modify(modify_obj)
+
+        print("Song updated successfully!")
 
 
 def validate_action():
@@ -55,18 +69,23 @@ def play_song():
 
 def execute_action(action, song_storage):
     if action == "add":
-        id = song_storage.add_song()
+        song_id = song_storage.add_song()
+        print("Your song id is: {}".format(song_id))
+
     elif action == "delete":
-        pass
+        song_storage.delete_song()
+
     elif action == "modify":
-        pass
+        song_storage.modify_song()
+
     elif action == "search":
         pass
+
     elif action == "save_list":
         pass
+
     elif action == "play":
         play_song()
-
 
 
 if __name__ == "__main__":

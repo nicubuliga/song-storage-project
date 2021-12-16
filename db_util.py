@@ -1,27 +1,16 @@
 import sqlite3
+from env_db import *
 
 
-DROP_SONGS = "DROP table IF EXISTS songs;"
-CREATE_SONGS_TABLE = """
-CREATE TABLE songs (
-    id integer primary key autoincrement,
-    filename text NOT NULL,
-    artist text,
-    song_name text NOT NULL,
-    date text,
-    tags text
-)
-"""
-
-
-def create_table(conn):
+def create_tables(conn):
     if conn == None:
-        print("Error at connection!")
-        return
+        raise Exception("Error at connection to database!")
 
     c = conn.cursor()
     c.execute(DROP_SONGS)
+    c.execute(DROP_TAGS)
     c.execute(CREATE_SONGS_TABLE)
+    c.execute(CREATE_TAGS_TABLE)
 
 
 def create_connection(db_file):
@@ -37,10 +26,59 @@ def create_connection(db_file):
 
 
 def add(obj):
+    conn = create_connection(DB_PATH)
+
+    if conn == None:
+        raise Exception("Error at connection to database!")
+
+    try:
+        cursor = conn.cursor()
+        row_data = (obj["filename"], obj["artist"],
+                    obj["song_name"], obj["date"])
+        cursor.execute(INSERT_SONG_SQL, row_data)
+        song_id = cursor.lastrowid
+
+        for tag in obj["tags"]:
+            if tag != "":
+                cursor.execute(INSERT_TAG_SQL, (song_id, tag))
+
+        conn.commit()
+
+        return song_id
+    except sqlite3.Error as e:
+        raise Exception(
+            "Check your json file parameters, probably it's something wrong with them!")
+    finally:
+        conn.close()
+
+
+def delete(song_id):
+    conn = create_connection(DB_PATH)
+
+    if conn == None:
+        raise Exception("Error at connection to database!")
+
+    try:
+        cursor = conn.cursor()
+        cursor.execute(DELETE_SONG_SQL, (song_id,))
+        cursor.execute(DELETE_TAGS_SQL, (song_id,))
+
+        conn.commit()
+
+        conn.close()
+    except sqlite3.Error as e:
+        raise Exception(
+            "There was an error at deleting, please try again!")
+    finally:
+        conn.close()
+
+
+def modify(obj):
     pass
+
 
 if __name__ == '__main__':
     conn = create_connection(r"db\songs.db")
-    create_table(conn)
+    create_tables(conn)
     if conn != None:
         conn.close()

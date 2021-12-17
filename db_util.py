@@ -81,8 +81,8 @@ def modify(obj):
 
     cursor = conn.cursor()
     update_str = ""
-    updates = True
 
+    # Update song
     if "filename" in obj:
         update_str += "filename = '{}',".format(obj["filename"])
     
@@ -99,8 +99,14 @@ def modify(obj):
         update_str = update_str[:-1]
         cursor.execute(UPDATE_SONG_SQL + update_str + " WHERE id = ?", (obj["ID"],))
 
-    else:
-        updates = False
+    # Update tags
+    for tag in obj["tags"]:
+        if tag != "":
+            if obj["tags_operation"] == "add":
+                cursor.execute(INSERT_TAG_SQL, (obj["ID"], tag))
+
+            elif obj["tags_operation"] == "remove":
+                cursor.execute(DELETE_SPECIFIC_TAG_SQL, (obj["ID"], tag))
     
     conn.commit()
     conn.close()

@@ -10,5 +10,5 @@
         "movie"
     ],
 
-  "tags_operation": "add/remove/overwrite" 
+  "tags_operation": "add/delete" 
 }

@@ -74,7 +74,43 @@ def delete(song_id):
 
 
 def modify(obj):
-    pass
+    conn = create_connection(DB_PATH)
+
+    if conn == None:
+        raise Exception("Error at connection to database!")
+
+    cursor = conn.cursor()
+    update_str = ""
+
+    # Update song
+    if "filename" in obj:
+        update_str += "filename = '{}',".format(obj["filename"])
+
+    if "artist" in obj:
+        update_str += "artist = '{}',".format(obj["artist"])
+
+    if "song_name" in obj:
+        update_str += "song_name = '{}',".format(obj["song_name"])
+
+    if "date" in obj:
+        update_str += "date = '{}',".format(obj["date"])
+
+    if len(update_str) > 0:
+        update_str = update_str[:-1]
+        cursor.execute(UPDATE_SONG_SQL + update_str +
+                       " WHERE id = ?", (obj["ID"],))
+
+    # Update tags
+    for tag in obj["tags"]:
+        if tag != "":
+            if obj["tags_operation"] == "add":
+                cursor.execute(INSERT_TAG_SQL, (obj["ID"], tag))
+
+            elif obj["tags_operation"] == "delete":
+                cursor.execute(DELETE_SPECIFIC_TAG_SQL, (obj["ID"], tag))
+
+    conn.commit()
+    conn.close()
 
 
 if __name__ == '__main__':

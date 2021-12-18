@@ -85,7 +85,6 @@ def modify(obj):
     # Update song
     if "filename" in obj:
         update_str += "filename = '{}',".format(obj["filename"])
-
     if "artist" in obj:
         update_str += "artist = '{}',".format(obj["artist"])
 

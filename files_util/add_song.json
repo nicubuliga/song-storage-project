@@ -1,13 +1,12 @@
 {
-    "song_filepath": "D:\\songs\\song1.mp3",
-    "filename": "song1.mp3",
+    "song_filepath": "D:\\songs\\song3.mp3",
+    "filename": "song3.mp3",
     "artist": "Eminem",
-    "song_name": "Venom",
+    "song_name": "Mockingbird",
     "date": "17.02.2019",
     "tags": [
-        "",
         "song",
         "eminem",
-        "movie"
+        "rap"
     ]
 }

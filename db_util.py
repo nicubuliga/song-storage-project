@@ -18,7 +18,6 @@ def create_connection(db_file):
 
     try:
         conn = sqlite3.connect(db_file)
-        print(sqlite3.version)
     except Exception as e:
         print(e)
 
@@ -110,6 +109,38 @@ def modify(obj):
 
     conn.commit()
     conn.close()
+
+
+def search(obj):
+    conn = create_connection(DB_PATH)
+
+    if conn == None:
+        raise Exception("Error at connection to database!")
+
+    cursor = conn.cursor()
+
+    res = cursor.execute(
+        SEARCH_SONGS, (obj["artist"], "%" + obj["song_format"]))
+    search_result = []
+
+    # Get tags
+    for r in res.fetchall():
+        tmp_obj = {
+            "ID": 0,
+            "filename": "###",
+            "artist": "###",
+            "song_name": "###",
+            "date": "###",
+        }
+        for index, key in enumerate(tmp_obj):
+            tmp_obj[key] = r[index]
+        id = r[0]
+        cursor.execute(SEARCH_TAGS, (id,))
+        tmp_obj["tags"] = [x[0] for x in cursor.fetchall()]
+
+        search_result.append(tmp_obj)
+
+    return search_result
 
 
 if __name__ == '__main__':

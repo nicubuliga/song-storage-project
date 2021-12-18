@@ -5,6 +5,7 @@ import os
 import shutil
 import webbrowser
 import db_util as db
+from zipfile import ZipFile
 
 INFO_VALIDATE = """
 Script should be called with exactly one parameter: song_util.py <action>
@@ -43,6 +44,33 @@ class SongStorage:
 
         print("Song updated successfully!")
 
+    def search_songs(self):
+        search_obj = get_from_json(env.SEARCH_SONG)
+
+        search_result = db.search(search_obj)
+
+        with open("search_result.json", "w") as fd:
+            json.dump(search_result, fd, indent=4)
+
+        print("Your songs are at: search_result.json")
+
+    def create_savelist(self):
+        savelist_obj = get_from_json(env.CREATE_SAVE_LIST)
+
+        search_obj = {
+            "artist": savelist_obj["artist"],
+            "song_format": savelist_obj["song_format"]
+        }
+
+        songs = db.search(search_obj)
+
+        with ZipFile(savelist_obj["archive_path"], 'w') as zip_fd:
+            for song in songs:
+                song_path = os.path.join("Storage", song["filename"])
+                zip_fd.write(song_path, arcname=os.path.basename(song_path))
+
+        print("Your savelist is ready at your specified path!")
+
 
 def validate_action():
     assert (len(sys.argv) > 1), INFO_VALIDATE
@@ -79,20 +107,20 @@ def execute_action(action, song_storage):
         song_storage.modify_song()
 
     elif action == "search":
-        pass
+        song_storage.search_songs()
 
     elif action == "save_list":
-        pass
+        song_storage.create_savelist()
 
     elif action == "play":
         play_song()
 
 
 if __name__ == "__main__":
-    # try:
-    song_storage = SongStorage()
-    validate_action()
-    execute_action(sys.argv[1], song_storage)
-    # except Exception as e:
-    #     print(e)
-    #     sys.exit()
+    try:
+        song_storage = SongStorage()
+        validate_action()
+        execute_action(sys.argv[1], song_storage)
+    except Exception as e:
+        print(e)
+        sys.exit()

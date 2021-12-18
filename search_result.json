@@ -1,0 +1,26 @@
+[
+    {
+        "ID": 2,
+        "filename": "song2.mp3",
+        "artist": "Eminem",
+        "song_name": "Venom",
+        "date": "17.02.2019",
+        "tags": [
+            "song",
+            "eminem",
+            "movie"
+        ]
+    },
+    {
+        "ID": 4,
+        "filename": "song3.mp3",
+        "artist": "Eminem",
+        "song_name": "Mockingbird",
+        "date": "17.02.2019",
+        "tags": [
+            "song",
+            "eminem",
+            "rap"
+        ]
+    }
+]

@@ -1,25 +1,14 @@
 [
     {
-        "ID": 2,
-        "filename": "song2.mp3",
-        "artist": "Eminem",
-        "song_name": "Venom",
-        "date": "17.02.2019",
-        "tags": [
-            "song",
-            "eminem",
-            "movie"
-        ]
-    },
-    {
         "ID": 4,
-        "filename": "song3.mp3",
-        "artist": "Eminem",
-        "song_name": "Mockingbird",
+        "filename": "QueenSong.mp3",
+        "artist": "Queen",
+        "song_name": "Mockingbird2",
         "date": "17.02.2019",
         "tags": [
             "song",
-            "eminem",
+            "good",
+            "ola",
             "rap"
         ]
     }

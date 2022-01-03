@@ -59,12 +59,18 @@ def delete(song_id):
 
     try:
         cursor = conn.cursor()
+        song = cursor.execute(SEARCH_SONG_BY_ID, (song_id,)).fetchall()
+        if len(song) == 0:
+            raise Exception("Song id doesn't exist!")
+
         cursor.execute(DELETE_SONG_SQL, (song_id,))
         cursor.execute(DELETE_TAGS_SQL, (song_id,))
 
         conn.commit()
 
         conn.close()
+
+        return song[0][0]
     except sqlite3.Error as e:
         raise Exception(
             "There was an error at deleting, please try again!")
@@ -81,9 +87,13 @@ def modify(obj):
     cursor = conn.cursor()
     update_str = ""
 
+    # Check if song exists
+    song = cursor.execute(SEARCH_SONG_BY_ID, (obj["ID"],)).fetchall()
+
+    if len(song) == 0:
+        raise Exception("Song doesn't exist!")
+
     # Update song
-    if "filename" in obj:
-        update_str += "filename = '{}',".format(obj["filename"])
     if "artist" in obj:
         update_str += "artist = '{}',".format(obj["artist"])
 

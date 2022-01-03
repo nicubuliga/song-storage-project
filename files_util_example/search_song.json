@@ -1,0 +1,4 @@
+{
+    "artist": "### -- optional, but at least one parameter",
+    "song_format": "### -- optional, but at least one parameter"
+}

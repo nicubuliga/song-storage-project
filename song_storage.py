@@ -8,8 +8,10 @@ from zipfile import ZipFile
 
 
 def get_from_json(json_path):
+    # Check if json file exists
     assert (os.path.exists(json_path)), INFO_MISSING_JSON.format(json_path)
 
+    # Get serialized json object with necessary parameters
     with open(json_path, "r") as fd:
         obj = json.load(fd)
 
@@ -17,6 +19,12 @@ def get_from_json(json_path):
 
 
 class SongStorage:
+    """This class is an abstraction of the database and has all the
+    possible database operations as methods:
+    <add, delete, search, modify>
+
+    It also contains the play_song method which can play a song from Storage
+    """
 
     def add_song():
         add_obj = get_from_json(ADD_SONG)

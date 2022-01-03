@@ -2,7 +2,16 @@ import sqlite3
 from env_db import *
 
 
+"""
+Database utilitary script which communicate with the database server through
+sqlite3 library
+
+If this script is called from command line it will reset the tables!
+"""
+
+
 def create_tables(conn):
+    # This function is used to reset all the tables
     if conn == None:
         raise Exception("Error at connection to database!")
 
@@ -14,6 +23,8 @@ def create_tables(conn):
 
 
 def create_connection(db_file):
+    # Returns a new connection to db or None if something is wrong
+
     conn = None
 
     try:
@@ -25,6 +36,8 @@ def create_connection(db_file):
 
 
 def add(obj):
+    # Add new metadata to db
+
     conn = create_connection(DB_PATH)
 
     if conn == None:
@@ -52,6 +65,8 @@ def add(obj):
 
 
 def delete(song_id):
+    # Delete metadata from db by a song id
+
     conn = create_connection(DB_PATH)
 
     if conn == None:
@@ -59,6 +74,8 @@ def delete(song_id):
 
     try:
         cursor = conn.cursor()
+
+        # Check if song exists
         song = cursor.execute(SEARCH_SONG_BY_ID, (song_id,)).fetchall()
         if len(song) == 0:
             raise Exception("Song id doesn't exist!")
@@ -79,6 +96,8 @@ def delete(song_id):
 
 
 def modify(obj):
+    # Modify metadata from db
+
     conn = create_connection(DB_PATH)
 
     if conn == None:
@@ -103,6 +122,7 @@ def modify(obj):
     if "date" in obj:
         update_str += "date = '{}',".format(obj["date"])
 
+    # If at least one field is set -> update metadata in db
     if len(update_str) > 0:
         update_str = update_str[:-1]
         cursor.execute(UPDATE_SONG_SQL + update_str +
@@ -122,6 +142,7 @@ def modify(obj):
 
 
 def search(obj):
+    # Search songs in db with the parameters (artist, format)
     conn = create_connection(DB_PATH)
 
     if conn == None:
@@ -143,7 +164,7 @@ def search(obj):
 
     search_result = []
 
-    # Get tags
+    # Create an array of results based on search parameters
     for r in res.fetchall():
         tmp_obj = {
             "ID": 0,

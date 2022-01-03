@@ -1,0 +1,10 @@
+{
+    "ID": 4,
+    "song_name": "### -- optional",
+    "artist": "### -- optional",
+    "date": "### -- optional",
+    "tags": [
+        "rap -- optional"
+    ],
+    "tags_operation": "add/delete"
+}

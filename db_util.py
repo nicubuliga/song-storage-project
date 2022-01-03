@@ -129,8 +129,18 @@ def search(obj):
 
     cursor = conn.cursor()
 
-    res = cursor.execute(
-        SEARCH_SONGS, (obj["artist"], "%" + obj["song_format"]))
+    if "artist" in obj and "song_format" not in obj:
+        res = cursor.execute(
+            SEARCH_SONG_BY_ARTIST, (obj["artist"],))
+    elif "artist" not in obj and "song_format" in obj:
+        res = cursor.execute(
+            SEARCH_SONG_BY_FORMAT, ("%" + obj["song_format"],))
+    elif "artist" in obj and "song_format" in obj:
+        res = cursor.execute(
+            SEARCH_SONGS, (obj["artist"], "%" + obj["song_format"]))
+    else:
+        raise Exception("Please set at least one parameter!")
+
     search_result = []
 
     # Get tags

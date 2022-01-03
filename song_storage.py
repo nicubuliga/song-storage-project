@@ -63,12 +63,7 @@ class SongStorage:
     def create_savelist():
         savelist_obj = get_from_json(CREATE_SAVE_LIST)
 
-        search_obj = {
-            "artist": savelist_obj["artist"],
-            "song_format": savelist_obj["song_format"]
-        }
-
-        songs = db.search(search_obj)
+        songs = db.search(savelist_obj)
 
         with ZipFile(savelist_obj["archive_path"], 'w') as zip_fd:
             for song in songs:

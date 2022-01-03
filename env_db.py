@@ -8,6 +8,8 @@ DELETE_SPECIFIC_TAG_SQL = "DELETE FROM tags WHERE song_id=? and tag=?;"
 UPDATE_SONG_SQL = "UPDATE songs SET "
 SEARCH_SONGS = "SELECT * FROM songs WHERE artist=? and filename LIKE ?"
 SEARCH_SONG_BY_ID = "SELECT filename FROM songs WHERE id=?;"
+SEARCH_SONG_BY_ARTIST = "SELECT * FROM songs WHERE artist=?;"
+SEARCH_SONG_BY_FORMAT = "SELECT * FROM songs WHERE filename LIKE ?;"
 SEARCH_TAGS = "SELECT tag FROM tags WHERE song_id=?;"
 
 DROP_SONGS = "DROP table IF EXISTS songs;"

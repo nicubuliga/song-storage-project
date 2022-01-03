@@ -1,15 +1,14 @@
 [
     {
-        "ID": 4,
-        "filename": "QueenSong.mp3",
-        "artist": "Queen",
-        "song_name": "Mockingbird2",
+        "ID": 3,
+        "filename": "eminem.mp3",
+        "artist": "Eminem",
+        "song_name": "Lose Yourself",
         "date": "17.02.2019",
         "tags": [
             "song",
             "good",
-            "ola",
-            "rap"
+            "ola"
         ]
     }
 ]

@@ -1,12 +1,10 @@
 {
     "song_filepath": "D:\\songs\\song3.mp3",
-    "filename": "eminem.mp3",
-    "artist": "Eminem",
-    "song_name": "Lose Yourself",
+    "filename": "song3.mp3",
+    "artist": "artist3",
+    "song_name": "name3",
     "date": "17.02.2019",
     "tags": [
-        "song",
-        "good",
-        "ola"
+        "music"
     ]
 }

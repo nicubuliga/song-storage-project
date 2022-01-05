@@ -1,8 +1,8 @@
 {
-  "ID": 4,
-  "song_name": "Mockingbird2",
+  "ID": 1,
   "tags": [
-    "rap"
+    "song",
+    "good"
   ],
-  "tags_operation": "add"
+  "tags_operation": "delete"
 }

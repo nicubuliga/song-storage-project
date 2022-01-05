@@ -41,7 +41,7 @@ def execute_action(action):
         SongStorage.create_savelist()
 
     elif action == "play":
-        SongStorage().play_song()
+        SongStorage.play_song()
 
 
 if __name__ == "__main__":
